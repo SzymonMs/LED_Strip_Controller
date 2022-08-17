@@ -1,15 +1,15 @@
 #include <Adafruit_NeoPixel.h>
 
-int stripSize = 8; // 12
+int stripSize = 12; // 12
 #define DIN A0
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(stripSize, DIN, NEO_GRB + NEO_KHZ800);
 
 // TODO: Bluetooth Transmition
-char comand = 'I';
+int comand = 'J';
 
-unsigned short colorR = 0;
-unsigned short colorG = 0;
-unsigned short colorB = 255;
+unsigned short colorR = 255;
+unsigned short colorG = 255;
+unsigned short colorB = 0;
 
 unsigned short colorR2 = 255;
 unsigned short colorG2 = 0;
@@ -125,10 +125,10 @@ void loop()
     strip.setPixelColor(5, strip.Color(0, 0, 255));
     strip.setPixelColor(6, strip.Color(0, 128, 0));
     strip.setPixelColor(7, strip.Color(165, 42, 42));
-    //    strip.setPixelColor(8,strip.Color(139,69,19));
-    //    strip.setPixelColor(9,strip.Color(255,0,0));
-    //    strip.setPixelColor(10,strip.Color(255,255,255));
-    //    strip.setPixelColor(11,strip.Color(128,128,0));
+    strip.setPixelColor(8, strip.Color(139, 69, 19));
+    strip.setPixelColor(9, strip.Color(255, 0, 0));
+    strip.setPixelColor(10, strip.Color(255, 255, 255));
+    strip.setPixelColor(11, strip.Color(128, 128, 0));
     strip.show();
   }
   // Gromadzenie0
@@ -180,7 +180,7 @@ void loop()
     int i = 0;
     int num = 0;
     SetAllColors(colorR, colorG, colorB, 0, stripSize / 2);
-    SetAllColors(colorR2, colorG2, colorB2, stripSize / 2, stripSize);
+    SetAllColors(colorR, colorG, colorB, stripSize / 2, stripSize);
     for (i = 0; i < 20; i++)
     {
       strip.setBrightness(255 - num);
@@ -191,6 +191,22 @@ void loop()
         strip.setBrightness(0);
       }
       delay(50);
+    }
+  }
+  if (comand == 'J')
+  {
+    for (int i = 0; i < stripSize; i++)
+    {
+      if (i % 2 == 0)
+      {
+        strip.setPixelColor(i, strip.Color(colorR, colorG, colorB));
+        strip.show();
+      }
+      else
+      {
+        strip.setPixelColor(i, strip.Color(0, 255, 0));
+        strip.show();
+      }
     }
   }
 }
